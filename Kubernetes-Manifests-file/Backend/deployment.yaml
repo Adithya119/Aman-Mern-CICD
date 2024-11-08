@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api
-  namespace: three-tier
+  namespace: prelude   ##
   labels:
     role: api
-    env: demo
+    env: dev          ##
 spec:
   replicas: 2
   strategy:
@@ -22,10 +22,10 @@ spec:
         role: api
     spec:
       imagePullSecrets:
-      - name: ecr-registry-secret
+      - name: ecr-registry-secret              ### pending ****
       containers:
       - name: api
-        image: 407622020962.dkr.ecr.us-east-1.amazonaws.com/backend:1
+        image: 137068254036.dkr.ecr.ap-south-1.amazonaws.com/backend:1
         imagePullPolicy: Always
         env:
           - name: MONGO_CONN_STR
@@ -44,7 +44,7 @@ spec:
         - containerPort: 3500
         livenessProbe:
           httpGet:
-            path: /healthz
+            path: /healthz             ### pending ***
             port: 3500
           initialDelaySeconds: 2
           periodSeconds: 5

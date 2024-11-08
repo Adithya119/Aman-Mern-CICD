@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: three-tier
+  namespace: prelude   ##
   labels:
-    role: frontend
-    env: demo
+    tier: frontend    ##
+    env: dev          ##
 spec: 
   replicas: 1
   strategy:
@@ -15,20 +15,20 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels: 
-      role: frontend
+      tier: frontend
   template:
     metadata:
       labels:
-        role: frontend
+        tier: frontend
     spec: 
       imagePullSecrets:
-      - name: ecr-registry-secret
+      - name: ecr-registry-secret     ##  pending  ***
       containers:
       - name: frontend
-        image: 407622020962.dkr.ecr.us-east-1.amazonaws.com/frontend:3
+        image: 137068254036.dkr.ecr.ap-south-1.amazonaws.com/frontend:3
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
-            value: "http://amanpathakdevops.study/api/tasks"
+            value: "http://amanpathakdevops.study/api/tasks"     ##  pending  ***
         ports:
         - containerPort: 3000
