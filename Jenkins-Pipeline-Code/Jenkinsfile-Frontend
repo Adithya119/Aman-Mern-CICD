@@ -60,7 +60,7 @@ pipeline {
         //         }
         //     }
         // }
-        
+
         stage("Docker Image Build") {
             steps {
                 script {
@@ -98,7 +98,7 @@ pipeline {
             }
             steps {
                 dir('Kubernetes-Manifests-file/Frontend') {
-                    withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([usernamePassword(credentialsId: 'GITHUB_PAT', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email "arkariveda@gmail.com"
                             git config user.name "Adithya"
