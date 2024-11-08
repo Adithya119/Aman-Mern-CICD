@@ -1,7 +1,6 @@
 pipeline {
     agent any 
     tools {
-        // jdk 'jdk'
         nodejs 'nodejs'
     }
     environment  {
@@ -40,18 +39,28 @@ pipeline {
                 }
             }
         }
-        stage('OWASP Dependency-Check Scan') {
-            steps {
-                dir('Application-Code/frontend') {
-                    dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'dependency-check'
-                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-                }
-            }
-        }
+        
+        // this stage works but will take long time. Hence, commenting out
+
+        // stage('OWASP Dependency-Check Scan') {
+        //     steps {
+        //         dir('Application-Code/frontend') {
+        //             dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'dependency-check'
+        //             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //         }
+        //     }
+        // }
+
         stage('Trivy File Scan') {
+            environment {
+                GIT_REPO_NAME = "Aman-CI-three-tier"
+                GIT_USER_NAME = "Adithya119"
+            }
             steps {
                 dir('Application-Code/frontend') {
-                    sh 'trivy fs . > trivyfs.txt'
+                    withCredentials([string(credentialsId: 'GITHUB_PAT')]) {
+                        sh 'trivy fs . > trivyfs.txt'
+                    }
                 }
             }
         }

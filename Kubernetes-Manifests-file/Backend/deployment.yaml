@@ -21,8 +21,8 @@ spec:
       labels:
         role: api
     spec:
-      imagePullSecrets:
-      - name: ecr-registry-secret              ### pending ****
+      #imagePullSecrets:
+      #- name: ecr-registry-secret              ### pending ****
       containers:
       - name: api
         image: 137068254036.dkr.ecr.ap-south-1.amazonaws.com/backend:1
@@ -44,7 +44,7 @@ spec:
         - containerPort: 3500
         livenessProbe:
           httpGet:
-            path: /healthz             ### pending ***
+            path: /healthz
             port: 3500
           initialDelaySeconds: 2
           periodSeconds: 5

@@ -21,14 +21,14 @@ spec:
       labels:
         tier: frontend
     spec: 
-      imagePullSecrets:
-      - name: ecr-registry-secret     ##  pending  ***
+      #imagePullSecrets:
+      #- name: ecr-registry-secret     ##  pending  ***
       containers:
       - name: frontend
         image: 137068254036.dkr.ecr.ap-south-1.amazonaws.com/frontend:3
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
-            value: "http://amanpathakdevops.study/api/tasks"     ##  pending  ***
+            value: "http://adithyark.infinityfreeapp.com/api/tasks"     ##  pending  ***
         ports:
         - containerPort: 3000
