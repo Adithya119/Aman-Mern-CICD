@@ -51,19 +51,16 @@ pipeline {
         //     }
         // }
 
-        stage('Trivy File Scan') {
-            environment {
-                GIT_REPO_NAME = "Aman-CI-three-tier"
-                GIT_USER_NAME = "Adithya119"
-            }
-            steps {
-                dir('Application-Code/frontend') {
-                    withCredentials([string(credentialsId: 'GITHUB_PAT')]) {
-                        sh 'trivy fs . > trivyfs.txt'
-                    }
-                }
-            }
-        }
+  // Facing errors with Trivy
+
+        // stage('Trivy File Scan') {
+        //     steps {
+        //         dir('Application-Code/frontend') {
+        //             sh 'trivy fs . > trivyfs.txt'
+        //         }
+        //     }
+        // }
+        
         stage("Docker Image Build") {
             steps {
                 script {
