@@ -51,15 +51,13 @@ pipeline {
         //     }
         // }
 
-  // Facing errors with Trivy
-
-        // stage('Trivy File Scan') {
-        //     steps {
-        //         dir('Application-Code/frontend') {
-        //             sh 'trivy fs . > trivyfs.txt'
-        //         }
-        //     }
-        // }
+        stage('Trivy File Scan') {
+            steps {
+                dir('Application-Code/frontend') {
+                    sh 'trivy fs . > trivyfs.txt'
+                }
+            }
+        }
 
         stage("Docker Image Build") {
             steps {
