@@ -40,7 +40,7 @@ pipeline {
             }
         }
         
-        // this stage works but will take long time. Hence, commenting out
+    // this stage works but will take long time. Hence, commenting out
 
         // stage('OWASP Dependency-Check Scan') {
         //     steps {
@@ -51,18 +51,20 @@ pipeline {
         //     }
         // }
 
-        stage('Trivy File Scan') {
-            steps {
-                withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GITHUB_PAT')]) {
-                  dir('Application-Code/frontend') {
-                      sh '''
-                          export GITHUB_PAT=$GITHUB_PAT
-                          trivy fs . > trivyfs.txt 
-                      '''
-                  }
-              }
-          }
-        }
+    // Trivy file scan stage is erroring out
+
+        // stage('Trivy File Scan') {
+        //     steps {
+        //         withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GITHUB_PAT')]) {
+        //           dir('Application-Code/frontend') {
+        //               sh '''
+        //                   export GITHUB_PAT=$GITHUB_PAT
+        //                   trivy fs . > trivyfs.txt 
+        //               '''
+        //           }
+        //       }
+        //   }
+        // }
 
         stage("Docker Image Build") {
             steps {

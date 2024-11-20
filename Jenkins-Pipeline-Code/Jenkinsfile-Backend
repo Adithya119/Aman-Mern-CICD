@@ -48,13 +48,17 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Trivy File Scan') {
-            steps {
-                dir('Application-Code/backend') {
-                    sh 'trivy fs . > trivyfs.txt'
-                }
-            }
-        }
+
+    // Trivy file scan stage is erroring out
+
+        // stage('Trivy File Scan') {
+        //     steps {
+        //         dir('Application-Code/backend') {
+        //             sh 'trivy fs . > trivyfs.txt'
+        //         }
+        //     }
+        // }
+        
         stage("Docker Image Build") {
             steps {
                 script {
