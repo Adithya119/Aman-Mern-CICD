@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git url: 'https://github.com/Adithya119/Aman-CI-three-tier.git'
+                git url: 'https://github.com/Adithya119/Aman-Mern-CICD.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -86,12 +86,12 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/Adithya119/Aman-CI-three-tier.git'
+                git url: 'https://github.com/Adithya119/Aman-Mern-CICD.git'
             }
         }
         stage('Update Deployment file') {
             environment {
-                GIT_REPO_NAME = "Aman-CI-three-tier"
+                GIT_REPO_NAME = "Aman-Mern-CICD"    // value should match the github repository name
                 GIT_USER_NAME = "Adithya119"
             }
             steps {
