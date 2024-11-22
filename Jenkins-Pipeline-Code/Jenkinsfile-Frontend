@@ -1,3 +1,5 @@
+@Library("my-first-jsl")
+
 pipeline {
     agent any 
     tools {
@@ -70,9 +72,7 @@ pipeline {
             steps {
                 script {
                     dir('Application-Code/frontend') {
-                            sh 'docker system prune -f'
-                            sh 'docker container prune -f'
-                            sh 'docker build -t ${AWS_ECR_REPO_NAME} .'
+                            mernCI.groovy()                  // ***  JSL used in this stage  ***
                     }
                 }
             }
