@@ -72,7 +72,7 @@ pipeline {
             steps {
                 script {
                     dir('Application-Code/frontend') {
-                            mernCI.groovy()                  // ***  JSL used in this stage  ***
+                        mernCI()                  // ***  JSL used in this stage  ***
                     }
                 }
             }
