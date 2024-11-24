@@ -1,6 +1,6 @@
 def call(String blockName) {                     // By defining def call(), you allow the file to be invoked directly as a function
     
-    switch (blockname) {                         // Select a block of code based on the provided block name
+    switch (blockName) {                         // Select a block of code based on the provided block name
       
       case 'CleaningWorkspaceAndCheckoutFromGit':       // If the block name is 'CleaningWorkspaceAndCheckoutFromGit'
         
