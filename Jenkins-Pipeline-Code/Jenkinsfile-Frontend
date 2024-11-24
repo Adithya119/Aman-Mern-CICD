@@ -32,8 +32,8 @@ pipeline {
         }
         
         script {
-            def Quality Check = mernCI('Quality Check')
-            Quality Check()
+            def QualityCheck = mernCI('QualityCheck')
+            QualityCheck()
         }
 
         stage("Docker Image Build") {
