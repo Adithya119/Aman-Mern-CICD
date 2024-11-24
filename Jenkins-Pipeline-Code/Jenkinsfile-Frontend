@@ -14,9 +14,13 @@ pipeline {
     }
     stages {
 
-        script {
-            def CleaningWorkspaceAndCheckoutFromGit = mernCI('CleaningWorkspaceAndCheckoutFromGit')    // Calls the shared library method 'mernCI' with the argument 'CleaningWorkspaceAndCheckoutFromGit'. This returns the closure for CleaningWorkspaceAndCheckoutFromGit.
-            CleaningWorkspaceAndCheckoutFromGit()                                // Executes the closure for this block, running the logic defined in the shared library.
+        stage('Cleaning Workspace') {     // from JSL
+              steps {
+                  script {
+                      def CleaningWorkspaceAndCheckoutFromGit = mernCI('CleaningWorkspaceAndCheckoutFromGit')    // Calls the shared library method 'mernCI' with the argument 'CleaningWorkspaceAndCheckoutFromGit'. This returns the closure for CleaningWorkspaceAndCheckoutFromGit.
+                      CleaningWorkspaceAndCheckoutFromGit()                                // Executes the closure for this block, running the logic defined in the shared library.
+                  }
+              }
         }
 
         stage('Sonarqube Analysis') {
@@ -31,9 +35,13 @@ pipeline {
             }
         }
         
-        script {
-            def QualityCheck = mernCI('QualityCheck')
-            QualityCheck()
+        stage('Quality Check') {     // from JSL
+            steps {
+                script {
+                    def QualityCheck = mernCI('QualityCheck')
+                    QualityCheck()
+                }
+            }
         }
 
         stage("Docker Image Build") {
@@ -49,9 +57,13 @@ pipeline {
             }
         }
         
-        script {
-            def EcrImagePushAndCheckoutCode = mernCI('EcrImagePushAndCheckoutCode')
-            EcrImagePushAndCheckoutCode()            
+        stage("ECR Image Pushing") {     // from JSL
+            steps {
+                script {
+                    def EcrImagePushAndCheckoutCode = mernCI('EcrImagePushAndCheckoutCode')
+                    EcrImagePushAndCheckoutCode()            
+                }
+            }
         }
 
         stage('Update Deployment file') {
