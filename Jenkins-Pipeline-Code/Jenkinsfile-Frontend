@@ -14,7 +14,7 @@ pipeline {
     }
     stages {
 
-        stage('Cleaning Workspace') {     // from JSL
+        stage('CleaningWorkspaceAndCheckoutFromGit') {     // from JSL
               steps {
                   script {
                       def CleaningWorkspaceAndCheckoutFromGit = mernCI('CleaningWorkspaceAndCheckoutFromGit')    // Calls the shared library method 'mernCI' with the argument 'CleaningWorkspaceAndCheckoutFromGit'. This returns the closure for CleaningWorkspaceAndCheckoutFromGit.
@@ -57,7 +57,7 @@ pipeline {
             }
         }
         
-        stage("ECR Image Pushing") {     // from JSL
+        stage("ECR Image Pushing and checkout from Git") {     // from JSL
             steps {
                 script {
                     def EcrImagePushAndCheckoutCode = mernCI('EcrImagePushAndCheckoutCode')
