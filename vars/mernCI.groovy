@@ -31,7 +31,7 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                echo "Config Tier: ${config.tier}" // Debugging output
+                echo "Config Tier: "${config.tier}"" // Debugging output
                 dir('Application-Code/frontend') {                    // variable
                     echo "Config Tier: ${config.tier}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
