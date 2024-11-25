@@ -34,7 +34,7 @@ def call (Map config = [:]) {
         stage('Sonarqube Analysis') {
             steps {
                 //echo "Config Tier: ${config.tierName}" // Debugging output
-                dir('Application-Code/frontend') {                    // variable
+                config.appDirpath {                    // variable
                     //echo "Working in directory: Application-Code/${config.tierName}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
