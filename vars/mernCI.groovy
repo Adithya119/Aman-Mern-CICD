@@ -1,9 +1,9 @@
 def call (Map config = [:]) {
 
   def appDirpath = config.appDirpath            // very important because we are parsing thesevariables inside the stages {} block, unlike config.repoName which is used outside of stages block. The stages look for globally defined config maps I guess.
-  def k8sDirpath = config.k8sDirpath
   def sonarProjectname = config.sonarProjectname
   def sonarProjectkey = config.sonarProjectkey
+  def k8sDirpath = config.k8sDirpath
 
   pipeline {
     agent any 
@@ -36,14 +36,12 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                script {
-                  dir("${appDirpath}") {                    // variable   // use Double-Quoted Strings inside dir() because single quotes was not reading the value of ${appDirpath}.
+                dir("${appDirpath}") {                    // variable   // use Double-Quoted Strings inside dir() because single quotes was not reading the value of ${appDirpath}.
                     withSonarQubeEnv('sonarqube server') {                 // use Double-Quoted Strings (""") with sh in this case because inside the shell, you are using double-quotes for "${sonarProjectname}" and "${sonarProjectname}"
                         sh """ $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName="${sonarProjectname}" \
                         -Dsonar.projectKey="${sonarProjectkey}" """           // variable (in the above line as well)
                     }
-                }
                 }
             }
         }
