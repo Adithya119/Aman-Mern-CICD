@@ -1,4 +1,6 @@
 def call (Map config = [:]) {
+
+  def tierName = config.tierName
   
   pipeline {
     agent any 
@@ -31,8 +33,8 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                echo "Config Tier: ${config.tierName}" // Debugging output
-                dir("Application-Code/${config.tierName}") {                    // variable
+                echo "Config Tier: ${tierName}" // Debugging output
+                dir("Application-Code/${tierName}") {                    // variable
                     echo "Working in directory: Application-Code/${config.tierName}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \

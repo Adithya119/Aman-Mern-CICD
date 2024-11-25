@@ -2,6 +2,6 @@
 
 mernCI(
     repoName: 'FRONTEND_REPO',      // camel casing is needed ==> repoName
-    tierName: "frontend",
+    tierName: 'frontend',
     k8sDirectory: 'Frontend'
 )
