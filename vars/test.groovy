@@ -4,13 +4,13 @@ def call(Map config = [:]) {
         stages {
             stage('Build') {
                 steps {
-                    echo "Building project..."
+                    echo "Building project: ${config.projectName}"
                     sh "echo Build logic here"
                 }
             }
             stage('Test') {
                 steps {
-                    echo "Running tests..."
+                    echo "Running tests for ${config.projectName}"
                     sh "echo Test logic here"
                 }
             }

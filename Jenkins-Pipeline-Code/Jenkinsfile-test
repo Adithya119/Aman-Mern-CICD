@@ -1,3 +1,5 @@
 @Library("my-first-jsl") _
 
-test()
+test(
+    config.projectName: 'Frontend'
+)
