@@ -89,7 +89,7 @@ def call (Map config = [:]) {
             steps {
                 echo "Config Tier: ${config.k8sDirectory}" // Debugging output
                 ${config.k8sDirectory} {                                 // variable
-                    echo "Working in directory: Kubernetes-Manifests-file/${config.k8sDirectory}"
+                    echo "Working in directory: ${config.k8sDirectory}"
                     withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email "arkariveda@gmail.com"
