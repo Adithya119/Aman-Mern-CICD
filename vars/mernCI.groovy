@@ -33,13 +33,13 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                echo "Config Tier: ${tierName}" // Debugging output
-                dir("Application-Code/${tierName}") {                    // variable
-                    echo "Working in directory: Application-Code/${config.tierName}"  // Debugging output 
+                //echo "Config Tier: ${config.tierName}" // Debugging output
+                dir('Application-Code/frontend') {                    // variable
+                    //echo "Working in directory: Application-Code/${config.tierName}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=mern-${config.tierName} \
-                        -Dsonar.projectKey=mern-${config.tierName} '''           // variable (in the above line as well)
+                        -Dsonar.projectName=mern-frontend \
+                        -Dsonar.projectKey=mern-frontend '''           // variable (in the above line as well)
                     }
                 }
             }
@@ -56,7 +56,7 @@ def call (Map config = [:]) {
         stage("Docker Image Build") {
             steps {
                 script {
-                    dir('Application-Code/${config.tierName}') {           // variable
+                    dir('Application-Code/frontend') {           // variable
                             sh 'docker system prune -f'
                             sh 'docker container prune -f'
                             sh 'docker build -t ${AWS_ECR_REPO_NAME} .'
