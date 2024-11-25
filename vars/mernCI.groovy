@@ -10,7 +10,7 @@ def call (Map config = [:]) {
     environment  {
         SCANNER_HOME=tool 'sonar-scanner'
         AWS_ACCOUNT_ID = credentials('AWS_ACC_ID')
-        AWS_ECR_REPO_NAME = credentials(config.repoName)     // variable
+        AWS_ECR_REPO_NAME = credentials("${config.repoName}")     // variable
         AWS_DEFAULT_REGION = 'ap-south-1'
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/"
     }
