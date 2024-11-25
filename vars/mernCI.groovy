@@ -1,8 +1,4 @@
 def call (Map config = [:]) {
-
-  def repoName = params.repoName
-  def tierName = params.tierName
-  def k8sDirectory = params.k8sDirectory
   
   pipeline {
     agent any 
@@ -35,13 +31,13 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                echo "Config Tier: ${params.tierName}" // Debugging output
-                dir("Application-Code/${params.tierName}") {                    // variable
-                    echo "Working in directory: Application-Code/${params.tierName}"  // Debugging output 
+                echo "Config Tier: ${config.tierName}" // Debugging output
+                dir("Application-Code/${config.tierName}") {                    // variable
+                    echo "Working in directory: Application-Code/${config.tierName}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=mern-${params.tierName} \
-                        -Dsonar.projectKey=mern-${params.tierName} '''           // variable (in the above line as well)
+                        -Dsonar.projectName=mern-${config.tierName} \
+                        -Dsonar.projectKey=mern-${config.tierName} '''           // variable (in the above line as well)
                     }
                 }
             }
