@@ -35,8 +35,8 @@ def call (Map config = [:]) {
                 dir("Application-Code/${config.tierName}".toString()) {                    // variable
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=mern-${config.tier} \
-                        -Dsonar.projectKey=mern-${config.tier} '''           // variable (in the above line as well)
+                        -Dsonar.projectName=mern-${config.tierName} \
+                        -Dsonar.projectKey=mern-${config.tierName} '''           // variable (in the above line as well)
                     }
                 }
             }
@@ -53,7 +53,7 @@ def call (Map config = [:]) {
         stage("Docker Image Build") {
             steps {
                 script {
-                    dir('Application-Code/${config.tier}') {           // variable
+                    dir('Application-Code/${config.tierName}') {           // variable
                             sh 'docker system prune -f'
                             sh 'docker container prune -f'
                             sh 'docker build -t ${AWS_ECR_REPO_NAME} .'
