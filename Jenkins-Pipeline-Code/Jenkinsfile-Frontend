@@ -2,6 +2,6 @@
 
 mernCI(
     repoName: 'FRONTEND_REPO',      // camel casing is needed ==> repoName
-    //appDirpath: "dir('Application-Code/frontend')",
-    k8sDirectory: "dir('Kubernetes-Manifests-file/${config.k8sDirectory}')"
+    tier: 'frontend'
+    //k8sDirectory:
 )
