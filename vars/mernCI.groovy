@@ -36,7 +36,7 @@ def call (Map config = [:]) {
                 script {
                   dir('Application-Code/${tier}') {                    // variable 
                     withSonarQubeEnv('sonarqube server') {                     // use Double-Quoted Strings (""") with sh in this case because inside the shell, you are using double-quotes for "${tier}"
-                        sh """ $SCANNER_HOME/bin/sonar-scanner \ 
+                        sh """ $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=mern-"${tier}" \
                         -Dsonar.projectKey=mern-"${tier}" """           // variable (in the above line as well)
                     }
