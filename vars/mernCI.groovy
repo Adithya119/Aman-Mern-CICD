@@ -31,14 +31,15 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                echo "Config Tier: "${config.tier}"" // Debugging output
-                dir('Application-Code/frontend') {                    // variable
+                script {
+                  dir('Application-Code/frontend') {                    // variable
                     echo "Config Tier: ${config.tier}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=mern-${config.tier} \
                         -Dsonar.projectKey=mern-${config.tier} '''           // variable (in the above line as well)
                     }
+                }
                 }
             }
         }
