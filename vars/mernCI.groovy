@@ -33,9 +33,9 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                echo "Config Tier: ${config.appDirpath}" // Debugging output
-                ${config.appDirpath} {                    // variable
-                    echo "Working in directory: Application-Code/${config.appDirpath}"  // Debugging output 
+                //echo "Config Tier: ${config.appDirpath}" // Debugging output
+                dir('Application-Code/frontend') {                    // variable
+                    //echo "Working in directory: Application-Code/${config.appDirpath}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=mern-frontend \
@@ -87,7 +87,9 @@ def call (Map config = [:]) {
                 GIT_USER_NAME = "Adithya119"
             }
             steps {
-                dir('Kubernetes-Manifests-file/${config.k8sDirectory}') {                                 // variable
+                echo "Config Tier: ${config.k8sDirectory}" // Debugging output
+                ${config.k8sDirectory} {                                 // variable
+                    echo "Working in directory: Application-Code/${config.k8sDirectory}"
                     withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email "arkariveda@gmail.com"
