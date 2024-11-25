@@ -1,4 +1,6 @@
 def call (Map config = [:]) {
+
+  def tier = config.tier
   
   pipeline {
     agent any 
@@ -33,11 +35,11 @@ def call (Map config = [:]) {
             steps {
                 script {
                   dir('Application-Code/frontend') {                    // variable
-                    echo "Config Tier: ${config.tier}"  // Debugging output 
+                    echo "Config Tier: ${tier}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=mern-${config.tier} \
-                        -Dsonar.projectKey=mern-${config.tier} '''           // variable (in the above line as well)
+                        -Dsonar.projectName=mern-${tier} \
+                        -Dsonar.projectKey=mern-${tier} '''           // variable (in the above line as well)
                     }
                 }
                 }
