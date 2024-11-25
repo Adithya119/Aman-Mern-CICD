@@ -1,6 +1,6 @@
 def call (Map config = [:]) {
 
-  def tier = config.tier
+  def tier = config.tier            // very important
   
   pipeline {
     agent any 
@@ -34,9 +34,9 @@ def call (Map config = [:]) {
         stage('Sonarqube Analysis') {
             steps {
                 script {
-                  dir('Application-Code/frontend') {                    // variable 
-                    withSonarQubeEnv('sonarqube server') {
-                        sh """ $SCANNER_HOME/bin/sonar-scanner \
+                  dir('Application-Code/${tier}') {                    // variable 
+                    withSonarQubeEnv('sonarqube server') {                     // use Double-Quoted Strings (""") with sh in this case because inside the shell, you are using double-quotes for "${tier}"
+                        sh """ $SCANNER_HOME/bin/sonar-scanner \ 
                         -Dsonar.projectName=mern-"${tier}" \
                         -Dsonar.projectKey=mern-"${tier}" """           // variable (in the above line as well)
                     }
