@@ -31,7 +31,7 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                dir('Application-Code/${config.tier}') {                    // variable
+                dir("Application-Code/${config.tier}") {                    // variable
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=mern-${config.tier} \
