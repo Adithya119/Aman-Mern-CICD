@@ -1,7 +1,9 @@
 def call (Map config = [:]) {
 
-  def tier = config.tier            // very important because we are using variables inside the stages {} block, unlike config.repoName which is used outside of stages block.
+  def appDirpath = config.appDirpath            // very important because we are parsing thesevariables inside the stages {} block, unlike config.repoName which is used outside of stages block. The stages look for globally defined config maps I guess.
   def k8sDirpath = config.k8sDirpath
+  def sonarProjectname = config.sonarProjectname
+  def sonarProjectkey = config.sonarProjectkey
 
   pipeline {
     agent any 
@@ -35,11 +37,11 @@ def call (Map config = [:]) {
         stage('Sonarqube Analysis') {
             steps {
                 script {
-                  dir("Application-Code/${tier}") {                    // variable   // use Double-Quoted Strings inside dir() because single quotes was not reading the value of ${tier}.
-                    withSonarQubeEnv('sonarqube server') {                 // use Double-Quoted Strings (""") with sh in this case because inside the shell, you are using double-quotes for "${tier}"
+                  dir("${appDirpath}") {                    // variable   // use Double-Quoted Strings inside dir() because single quotes was not reading the value of ${appDirpath}.
+                    withSonarQubeEnv('sonarqube server') {                 // use Double-Quoted Strings (""") with sh in this case because inside the shell, you are using double-quotes for "${sonarProjectname}" and "${sonarProjectname}"
                         sh """ $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=mern-"${tier}" \
-                        -Dsonar.projectKey=mern-"${tier}" """           // variable (in the above line as well)
+                        -Dsonar.projectName="${sonarProjectname}" \
+                        -Dsonar.projectKey="${sonarProjectkey}" """           // variable (in the above line as well)
                     }
                 }
                 }
@@ -57,7 +59,7 @@ def call (Map config = [:]) {
         stage("Docker Image Build") {
             steps {
                 script {
-                    dir("Application-Code/${tier}") {           // variable
+                    dir("${appDirpath}") {           // variable
                             sh 'docker system prune -f'
                             sh 'docker container prune -f'
                             sh 'docker build -t ${AWS_ECR_REPO_NAME} .'
