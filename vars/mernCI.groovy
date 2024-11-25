@@ -33,9 +33,9 @@ def call (Map config = [:]) {
 
         stage('Sonarqube Analysis') {
             steps {
-                //echo "Config Tier: ${config.tierName}" // Debugging output
+                echo "Config Tier: ${config.appDirpath}" // Debugging output
                 ${config.appDirpath} {                    // variable
-                    //echo "Working in directory: Application-Code/${config.tierName}"  // Debugging output 
+                    echo "Working in directory: Application-Code/${config.appDirpath}"  // Debugging output 
                     withSonarQubeEnv('sonarqube server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=mern-frontend \
