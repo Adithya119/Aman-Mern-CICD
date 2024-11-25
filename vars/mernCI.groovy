@@ -36,9 +36,9 @@ def call (Map config = [:]) {
                 script {
                   dir('Application-Code/frontend') {                    // variable 
                     withSonarQubeEnv('sonarqube server') {
-                        sh ''' $SCANNER_HOME/bin/sonar-scanner \
+                        sh """ $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=mern-"${tier}" \
-                        -Dsonar.projectKey=mern-"${tier}" '''           // variable (in the above line as well)
+                        -Dsonar.projectKey=mern-"${tier}" """           // variable (in the above line as well)
                     }
                 }
                 }
