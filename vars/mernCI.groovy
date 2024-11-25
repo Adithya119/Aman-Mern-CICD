@@ -10,7 +10,7 @@ def call (Map config = [:]) {
     environment  {
         SCANNER_HOME=tool 'sonar-scanner'
         AWS_ACCOUNT_ID = credentials('AWS_ACC_ID')
-        AWS_ECR_REPO_NAME = credentials('${config.repoName}')     // variable
+        AWS_ECR_REPO_NAME = credentials('${config.repoName}')     // variable    // camel casing should be used ==> repoName
         AWS_DEFAULT_REGION = 'ap-south-1'
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/"
     }
@@ -83,7 +83,7 @@ def call (Map config = [:]) {
                 GIT_USER_NAME = "Adithya119"
             }
             steps {
-                dir('Kubernetes-Manifests-file/${config.k8s-directory}') {                                 // variable
+                dir('Kubernetes-Manifests-file/${config.k8sDirectory}') {                                 // variable
                     withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email "arkariveda@gmail.com"
