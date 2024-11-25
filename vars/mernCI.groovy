@@ -1,7 +1,8 @@
 def call (Map config = [:]) {
 
-  def tier = config.tier            // very important
-  
+  def tier = config.tier            // very important because we are using variables inside the stages {} block, unlike config.repoName which is used outside of stages block.
+  def k8sDirpath = config.k8sDirpath
+
   pipeline {
     agent any 
     
@@ -34,7 +35,7 @@ def call (Map config = [:]) {
         stage('Sonarqube Analysis') {
             steps {
                 script {
-                  dir("Application-Code/${tier}") {                    // variable 
+                  dir("Application-Code/${tier}") {                    // variable   // use Double-Quoted Strings inside dir() because single quotes was not reading the value of ${tier}.
                     withSonarQubeEnv('sonarqube server') {                 // use Double-Quoted Strings (""") with sh in this case because inside the shell, you are using double-quotes for "${tier}"
                         sh """ $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=mern-"${tier}" \
@@ -56,7 +57,7 @@ def call (Map config = [:]) {
         stage("Docker Image Build") {
             steps {
                 script {
-                    dir('Application-Code/frontend') {           // variable
+                    dir("Application-Code/${tier}") {           // variable
                             sh 'docker system prune -f'
                             sh 'docker container prune -f'
                             sh 'docker build -t ${AWS_ECR_REPO_NAME} .'
@@ -87,7 +88,7 @@ def call (Map config = [:]) {
                 GIT_USER_NAME = "Adithya119"
             }
             steps {
-                dir('Kubernetes-Manifests-file/Frontend') {                                 // variable                    
+                dir("Kubernetes-Manifests-file/${k8sDirpath}") {                                 // variable                    
                     withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                             git config user.email "arkariveda@gmail.com"
