@@ -76,6 +76,18 @@ def call (Map config = [:]) {
             }
         }
 
+        // Conditional stage
+        stage('Testing conditional stage') {
+            when {                              // you cannot use return inside the stages block. Instead, use the when directive.
+                expression {
+                    config.get('testingStage', true)
+                }
+            }
+            steps {
+                echo "This conditional stage will be performed only if includeTesting is set to true in your Jenkinsfile"
+            }
+        }                
+
         stage('Checkout Code') {
             steps {
                 git url: 'https://github.com/Adithya119/Aman-Mern-CICD.git'

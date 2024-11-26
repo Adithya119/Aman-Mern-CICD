@@ -1,5 +1,0 @@
-@Library("my-first-jsl") _
-
-test(
-    projectName: 'Frontend'
-)

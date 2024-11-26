@@ -5,5 +5,5 @@ mernCI(
     appDirpath: 'Application-Code/frontend',
     sonarProjectname: 'mern-frontend',
     sonarProjectkey: 'mern-frontend',
-    k8sDirpath: 'Frontend'
-)
+    k8sDirpath: 'Frontend',
+    testingStage: true   // boolean               // Pass this parameter to enable or disable the conditional stage
