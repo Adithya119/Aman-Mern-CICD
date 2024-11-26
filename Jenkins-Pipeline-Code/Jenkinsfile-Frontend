@@ -9,3 +9,5 @@ mernCI(
     owaspDependencyscan: false,   // boolean               // Pass this parameter to enable or disable the conditional stage
     testingStage: true   
 )
+
+// check jenkins declarative pipeline documentation for reference
