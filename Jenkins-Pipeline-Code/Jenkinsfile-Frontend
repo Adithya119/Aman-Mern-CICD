@@ -6,5 +6,6 @@ mernCI(
     sonarProjectname: 'mern-frontend',
     sonarProjectkey: 'mern-frontend',
     k8sDirpath: 'Frontend',
-    testingStage: true   // boolean               // Pass this parameter to enable or disable the conditional stage
+    owaspDependencyscan: false,   // boolean               // Pass this parameter to enable or disable the conditional stage
+    testingStage: true   
 )

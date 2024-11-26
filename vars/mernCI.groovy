@@ -53,6 +53,22 @@ def call (Map config = [:]) {
                 }
             }
         }
+
+        // This stage works but will take long time. Hence, you can choose to not run it using the when directive.
+
+        stage('OWASP Dependency-Check Scan') {
+            when {
+                expression {
+                    config.get('owaspDependencyscan', true)  // run this stage only when owaspDependencyscan is set to true in your Jenkinsfile
+                }
+            }
+            steps {
+                dir('Application-Code/frontend') {
+                    dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'dependency-check'
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                }
+            }
+        }
         
         stage("Docker Image Build") {
             steps {
@@ -80,7 +96,7 @@ def call (Map config = [:]) {
         stage('Testing conditional stage') {
             when {                              // you cannot use return inside the stages block. Instead, use the when directive.
                 expression {
-                    config.get('testingStage', true)
+                    config.get('testingStage', true)    // run this stage only when testingStage is set to true in your Jenkinsfile
                 }
             }
             steps {
