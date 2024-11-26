@@ -5,5 +5,7 @@ mernCI(
     appDirpath: 'Application-Code/backend',
     sonarProjectname: 'mern-backend',
     sonarProjectkey: 'mern-backend',
-    k8sDirpath: 'Backend'
+    k8sDirpath: 'Backend',
+    owaspDependencyscan: false,
+    testingStage: false
 )
