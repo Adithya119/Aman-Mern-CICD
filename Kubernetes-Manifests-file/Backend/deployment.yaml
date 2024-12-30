@@ -25,8 +25,8 @@ spec:
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/agent-inject-status: 'update'
         vault.hashicorp.com/role: 'mern-app'
-        #vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
-        vault.hashicorp.com/agent-inject-secret-root-password: 'secret/data/mongodb_root_password'
+        vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
+        #vault.hashicorp.com/agent-inject-secret-root-password: 'secret/data/mongodb_root_password'
       #
     spec:
       #imagePullSecrets:
@@ -40,11 +40,11 @@ spec:
           - name: MONGO_CONN_STR
             value: mongodb://mongodb-svc:27017/todo?directConnection=true
 
-          - name: MONGO_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongo-sec
-                key: username
+          # - name: MONGO_USERNAME
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: mongo-sec
+          #       key: username
 
         ports:
         - containerPort: 3500
