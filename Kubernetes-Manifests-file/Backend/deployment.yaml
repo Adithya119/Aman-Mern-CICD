@@ -20,9 +20,18 @@ spec:
     metadata:
       labels:
         role: api
+      #
+      annotations:                                                              ##  for vault
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/agent-inject-status: 'update'
+        vault.hashicorp.com/role: 'mern-app'
+        #vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
+        vault.hashicorp.com/agent-inject-secret-root-password: 'secret/data/mongodb_root_password'
+      #
     spec:
       #imagePullSecrets:
-      #- name: ecr-registry-secret              ### pending ****
+      #- name: ecr-registry-secret      ### pending **
+      serviceAccount: mern-app-sa                                                ##  for vault
       containers:
       - name: api
         image: 137068254036.dkr.ecr.ap-south-1.amazonaws.com/backend-repo:8
@@ -30,16 +39,13 @@ spec:
         env:
           - name: MONGO_CONN_STR
             value: mongodb://mongodb-svc:27017/todo?directConnection=true
+
           - name: MONGO_USERNAME
             valueFrom:
               secretKeyRef:
                 name: mongo-sec
                 key: username
-          - name: MONGO_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongo-sec
-                key: password
+
         ports:
         - containerPort: 3500
         livenessProbe:

@@ -12,7 +12,16 @@ spec:
     metadata:
       labels: 
         app: mongodb
+      #
+      annotations:                                                         ##  for vault
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/agent-inject-status: 'update'
+        vault.hashicorp.com/role: 'mern-app'
+        #vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
+        vault.hashicorp.com/agent-inject-secret-root-password: 'secret/data/mongodb_root_password'
+      #
     spec: 
+      serviceAccount: mern-app-sa          # for vault
       containers:
       - name: mon
         image: mongo:4.4.6
@@ -32,11 +41,13 @@ spec:
               secretKeyRef:
                 name: mongo-sec
                 key: username
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongo-sec
-                key: password
+
+          # - name: MONGO_INITDB_ROOT_PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: mongo-sec
+          #       key: password
+          
         volumeMounts:
           - name: mongo-volume
             mountPath: /data/db

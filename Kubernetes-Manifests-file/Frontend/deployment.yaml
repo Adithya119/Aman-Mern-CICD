@@ -32,3 +32,6 @@ spec:
             value: "http://adithyark.click/api/tasks"
         ports:
         - containerPort: 3000
+
+# This yaml doesnt need to have serviceAccount: mern-app-sa in its spec because it doesnt need any secrets to fetch from vault.
+# Pods running with a Kubernetes service account other than the ones defined in the Vault Kubernetes authentication role are NOT able to access the secrets defined at that path.
