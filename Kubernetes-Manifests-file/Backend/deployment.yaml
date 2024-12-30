@@ -34,7 +34,7 @@ spec:
       serviceAccount: mern-app-sa                                                ##  for vault
       containers:
       - name: api
-        image: 137068254036.dkr.ecr.ap-south-1.amazonaws.com/backend-repo:8
+        image: 137068254036.dkr.ecr.ap-south-1.amazonaws.com/backend-repo:9
         imagePullPolicy: Always
         env:
           - name: MONGO_CONN_STR
