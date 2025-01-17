@@ -1,6 +1,6 @@
 def call (Map config = [:]) {
 
-  def appDirpath = config.appDirpath            // very important because we are parsing thesevariables inside the stages {} block, unlike config.repoName which is used outside of stages block. The stages look for globally defined config maps I guess.
+  def appDirpath = config.appDirpath            // very important because we are parsing these variables inside the stages {} block, unlike config.repoName which is used outside of stages block. The stages look for globally defined config maps I guess.
   def sonarProjectname = config.sonarProjectname
   def sonarProjectkey = config.sonarProjectkey
   def k8sDirpath = config.k8sDirpath
@@ -54,7 +54,8 @@ def call (Map config = [:]) {
             }
         }
 
-        // This stage works but will take long time. Hence, you can choose to not run it using the when directive.
+        
+        // Conditional stage. This stage works but will take long time. Hence, you can choose to not run it using the when directive.
 
         stage('OWASP Dependency-Check Scan') {
             when {
