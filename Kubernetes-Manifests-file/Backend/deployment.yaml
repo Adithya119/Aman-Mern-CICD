@@ -24,7 +24,7 @@ spec:
       annotations:                                                              ##  for vault
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/agent-inject-status: 'update'
-        vault.hashicorp.com/role: 'internal-app'
+        vault.hashicorp.com/role: 'mern-role'
         vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
         #vault.hashicorp.com/agent-inject-secret-root-password: 'secret/data/mongodb_root_password'
       #
