@@ -8,7 +8,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip                 # This ensures that the Load Balancer communicates directly with pods instead of nodes.
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'   # it's 443 in real time
-    alb.ingress.kubernetes.io/inbound-cidrs: "49.43.219.215/32,65.2.191.201/32"   # my laptop ip, jump server ip
+    alb.ingress.kubernetes.io/inbound-cidrs: "49.43.219.215/32,65.2.191.201/32"   # my laptop ip (its dynamic, so check it everytime), jump server ip
     # alb.ingress.kubernetes.io/subnets: "subnet-0aa439b4ddafcca10,subnet-0b95df318219145ca"
     # alb.ingress.kubernetes.io/inbound-cidrs: "203.0.113.0/24,192.0.2.0/24"      # Allows traffic only from these ip's. Usually this is from a vpn/client network. This rule is added to the ALB's SG.
 spec:
